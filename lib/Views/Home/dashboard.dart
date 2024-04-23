@@ -1,4 +1,5 @@
 import 'package:crowdfunding/AppTheme/app_config.dart';
+import 'package:crowdfunding/Core/Enums/enums.dart';
 import 'package:crowdfunding/Core/Helpers/navigation_helper.dart';
 import 'package:crowdfunding/Core/app_constants.dart';
 import 'package:crowdfunding/Model/Response/fundraiser_model.dart';
@@ -289,6 +290,7 @@ class InterestedCampaignTile extends StatelessWidget {
       percent = amount / double.parse(fundraiser.amountRaising!) * 100;
     }
 
+// print(Utils.screenSize(context));
     return Container(
       padding: const EdgeInsets.all(15),
       decoration: BoxDecoration(
@@ -318,10 +320,14 @@ class InterestedCampaignTile extends StatelessWidget {
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(
-                            fundraiser.title ?? "",
-                            style: const TextStyle(
-                                fontSize: 15, fontWeight: FontWeight.w600),
+                          SizedBox(
+                            width:Utils.screenSize(context) == ScreenSize.medium ?  Utils.screenWidth(context)-180: double.infinity,
+                            child: Text(
+                              fundraiser.title ?? "",
+                              overflow: TextOverflow.ellipsis,
+                              style: const TextStyle(
+                                  fontSize: 15, fontWeight: FontWeight.w600),
+                            ),
                           ),
                           Text(
                             "Target: £${fundraiser.amountRaising}",
@@ -335,8 +341,8 @@ class InterestedCampaignTile extends StatelessWidget {
                   AppSpaces.height8,
                   Text(
                     "Raised: £$amount",
-                    style: const TextStyle(
-                        fontSize: 17, fontWeight: FontWeight.w600),
+                    style:  TextStyle(
+                        fontSize: Utils.screenSize(context)== ScreenSize.small  ?  13 : Utils.screenSize(context)== ScreenSize.medium  ?  15: 18, fontWeight: FontWeight.w600),
                   ),
                 ],
               ),
@@ -354,7 +360,7 @@ class InterestedCampaignTile extends StatelessWidget {
             color: AppColors.SECONDARYCOLOR,
             value: percent / 100,
             borderRadius: BorderRadius.circular(20),
-            minHeight: 7,
+            minHeight: 6,
           )
         ],
       ),

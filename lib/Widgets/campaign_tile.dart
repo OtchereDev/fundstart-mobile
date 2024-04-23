@@ -1,5 +1,6 @@
 import 'package:crowdfunding/AppTheme/app_config.dart';
 import 'package:crowdfunding/Components/image_viewer.dart';
+import 'package:crowdfunding/Core/Enums/enums.dart';
 import 'package:crowdfunding/Model/Response/fundraiser_model.dart';
 import 'package:crowdfunding/Utils/utils.dart';
 import 'package:crowdfunding/Widgets/custom_divider.dart';
@@ -144,7 +145,7 @@ class CampaignTile extends StatelessWidget {
                               AppSpaces.width16,
                               Text(
                                 "£${fundraiser.amountRaising}",
-                                style: const TextStyle(
+                                style:  TextStyle(
                                     fontSize: 15, fontWeight: FontWeight.w600),
                               )
                             ],
@@ -152,7 +153,7 @@ class CampaignTile extends StatelessWidget {
                           Text(
                             "Remaning Days: $difference",
                             style: TextStyle(
-                                fontSize: 15, fontWeight: FontWeight.w600),
+                                fontSize:Utils.screenSize(context) == ScreenSize.medium ?12 : 15, fontWeight: FontWeight.w600),
                           ),
                         ],
                       ),

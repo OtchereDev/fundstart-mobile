@@ -1,4 +1,5 @@
 import 'package:crowdfunding/AppTheme/app_config.dart';
+import 'package:crowdfunding/Components/card_loading_shimmer.dart';
 import 'package:crowdfunding/Components/carousel.dart';
 import 'package:crowdfunding/Core/Helpers/navigation_helper.dart';
 import 'package:crowdfunding/Provider/Fundraiser/fundraiser_provider.dart';
@@ -131,7 +132,10 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin{
                             ],
                           ),
                           // AppSpaces.height8,
-                          ...List.generate(
+                        fundraiser.isLoading? Text("..."):  Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              ...List.generate(
                               fundraiser.fundRaiserModel?.fundraisers
                                       ?.take(3)
                                       .length ??
@@ -141,13 +145,10 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin{
                                 .toList()[index];
                             return FundraiserTile(
                               fundraiser: data!,
-                              // onTap: () {
-                              //   fundraiser.setFundRaiser(data);
-                              //   AppNavigationHelper.navigateToWidget(
-                              //       context, CampaignDetails(fundraiser: data));
-                              // },
                             );
                           }),
+                            ],
+                          ),
                          
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,

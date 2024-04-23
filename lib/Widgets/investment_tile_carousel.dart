@@ -2,8 +2,10 @@ import 'dart:math';
 
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:crowdfunding/Components/card_loading_shimmer.dart';
+import 'package:crowdfunding/Core/Enums/enums.dart';
 import 'package:crowdfunding/Core/Helpers/navigation_helper.dart';
 import 'package:crowdfunding/Provider/Fundraiser/fundraiser_provider.dart';
+import 'package:crowdfunding/Utils/utils.dart';
 import 'package:crowdfunding/Views/Campaigns/campaign_details.dart';
 import 'package:crowdfunding/Views/Home/dashboard.dart';
 import 'package:flutter/material.dart';
@@ -29,6 +31,7 @@ class InvestmentTileCarousel extends StatelessWidget {
       var fundR = fund.fundRaiserModel?.fundraisers;
       return fund.isLoading? Expanded(child: CardLoadingShimmer(numberOfCards: 1,)): CarouselSlider(
         options: CarouselOptions(
+          height:Utils.screenSize(context) == ScreenSize.medium ?  115: null,
           aspectRatio: 3.0,
           pageSnapping: true,
           scrollDirection: Axis.horizontal,

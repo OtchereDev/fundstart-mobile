@@ -39,71 +39,83 @@ class LoginPage extends StatelessWidget {
         ),
         body: auth.loadPage
             ? Center(child: CircularProgressIndicator())
-            : Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                child: Form(
-                  key: skf,
-                  child: Column(
-                    children: [
-                      Spacer(),
-                      Center(
-                          child: Image.asset(
-                        logo,
-                        width: 200,
-                      )),
-                      AppSpaces.height40,
-                      AppSpaces.height40,
-                      TextFormWidget(
-                        emailController,
-                        'Email',
-                        false,
-                        hint: 'Email',
-                        validate: true,
-                        validateEmail: true,
-                        validateMsg: 'Email is required',
-                      ),
-                      AppSpaces.height20,
-                      PasswordField(
-                        controller: passwordController,
-                        hintText: "Password",
-                        inputType: TextInputType.text,
-                        validateMsg: 'Password required',
-                        labelText: "Password",
-                        validate: true,
-                        
-                      ),
-                      Spacer(),
-                      Spacer(),
-                      SizedBox(
-                          width: double.infinity,
-                          child: CustomButton(
-                            title: 'Sign In',
-                            onTap: () {
-                              if (skf.currentState?.validate() == true) {
-                                auth
-                                    .performLogin(context,
-                                        email: emailController.text.trim(),
-                                        password: passwordController.text)
-                                    .then((value) {
-                                  if (value == true) {
-                                    AppNavigationHelper
-                                        .navigateAndReplaceWidget(
-                                            context,
-                                            PinCodeVerificationScreen(
-                                                emailController.text));
-                                  }
-                                });
-                              }
+            : LayoutBuilder(builder: (context, constraint) {
+                return Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                  child: Form(
+                    key: skf,
+                    child: SingleChildScrollView(
+                      child: ConstrainedBox(
+                        constraints:
+                            BoxConstraints(minHeight: constraint.maxHeight),
+                        child: IntrinsicHeight(
+                          child: Column(
+                            children: [
+                              Spacer(),
+                              Center(
+                                  child: Image.asset(
+                                logo,
+                                width: 200,
+                              )),
+                              AppSpaces.height40,
+                              AppSpaces.height40,
+                              TextFormWidget(
+                                emailController,
+                                'Email',
+                                false,
+                                hint: 'Email',
+                                validate: true,
+                                validateEmail: true,
+                                validateMsg: 'Email is required',
+                              ),
+                              AppSpaces.height20,
+                              PasswordField(
+                                controller: passwordController,
+                                hintText: "Password",
+                                inputType: TextInputType.text,
+                                validateMsg: 'Password required',
+                                labelText: "Password",
+                                validate: true,
+                              ),
+                              Spacer(),
+                              Spacer(),
+                              SizedBox(
+                                  width: double.infinity,
+                                  child: CustomButton(
+                                    title: 'Sign In',
+                                    onTap: () {
+                                      if (skf.currentState?.validate() ==
+                                          true) {
+                                        auth
+                                            .performLogin(context,
+                                                email:
+                                                    emailController.text.trim(),
+                                                password:
+                                                    passwordController.text)
+                                            .then((value) {
+                                          if (value == true) {
+                                            AppNavigationHelper
+                                                .navigateAndReplaceWidget(
+                                                    context,
+                                                    PinCodeVerificationScreen(
+                                                        emailController.text));
+                                          }
+                                        });
+                                      }
 
-                              // AppNavigationHelper.setRootOldWidget(context, HomeIndex());
-                            },
-                            color: AppColors.SECONDARYCOLOR,
-                          )),
-                      AppSpaces.height40,
-                    ],
+                                      // AppNavigationHelper.setRootOldWidget(context, HomeIndex());
+                                    },
+                                    color: AppColors.SECONDARYCOLOR,
+                                  )),
+                              AppSpaces.height40,
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
                   ),
-                ),
-              ),
+                );
+              }),
       );
     });
   }

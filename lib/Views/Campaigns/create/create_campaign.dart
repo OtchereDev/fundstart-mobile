@@ -63,6 +63,11 @@ class _CreateCampaignState extends State<CreateCampaign> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                Text("Add a cover photo", style: TextStyle(
+              color: AppColors.BLACK,
+              fontSize: 14,
+             ),),
+             AppSpaces.height8,
                 Container(
                   decoration: BoxDecoration(
                       border: Border.all(

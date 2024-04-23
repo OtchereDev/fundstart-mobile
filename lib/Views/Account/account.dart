@@ -29,39 +29,41 @@ class AccountPage extends StatelessWidget {
         builder: (context, profile, _) {
           return  Padding(
             padding: const EdgeInsets.symmetric(horizontal:20.0),
-            child: Column(
-              children: [
-                AppSpaces.height20,
-                const CircleAvatar(radius: 35,backgroundImage: NetworkImage(messi),),
-                AppSpaces.height8,
-                Text("${profile.currentUserProfile?.data.result.profile.firstName} ${profile.currentUserProfile?.data.result.profile.lastName}",style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w600),),
-                Text("${profile.currentUserProfile?.data.result.email}", style: const TextStyle(fontSize: 13, fontWeight: FontWeight.w300),),
-                AppSpaces.height20,
-                const CustomDivider(),
-                
-                 ProfileTile(subText: "Change password, Delete Account, Edit profile",title: 'Profile', icon: FeatherIcons.user,onTap: (){
-                  AppNavigationHelper.navigateToWidget(context, ProfilePage());
-                },),
-                // AppSpaces.height8,
-                const CustomDivider(),
-          
-                const ProfileTile(subText: "Notification, Language, Change Currency",title: 'Setting',icon: FeatherIcons.settings,),
-                // AppSpaces.height8,
-                const CustomDivider(),
-          
-                const ProfileTile(subText: "View team",title: 'Team',icon: FeatherIcons.users,),
-                // AppSpaces.height8,
-                const CustomDivider(),
-          
-                const ProfileTile(subText: "Edit profile",title: 'Invite User',icon: FeatherIcons.userPlus,),
-                // AppSpaces.height8,
-                const CustomDivider(),
-          
-                const ProfileTile(subText: "Signout",title: 'Logout',icon: FeatherIcons.logOut,),
-                const CustomDivider(),
-          
-          
-              ],
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  AppSpaces.height20,
+                  const CircleAvatar(radius: 35,backgroundImage: NetworkImage(messi),),
+                  AppSpaces.height8,
+                  Text("${profile.currentUserProfile?.data.result.profile.firstName} ${profile.currentUserProfile?.data.result.profile.lastName}",style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w600),),
+                  Text("${profile.currentUserProfile?.data.result.email}", style: const TextStyle(fontSize: 13, fontWeight: FontWeight.w300),),
+                  AppSpaces.height20,
+                  const CustomDivider(),
+                  
+                   ProfileTile(subText: "Change password, Delete Account, Edit profile",title: 'Profile', icon: FeatherIcons.user,onTap: (){
+                    AppNavigationHelper.navigateToWidget(context, ProfilePage());
+                  },),
+                  // AppSpaces.height8,
+                  const CustomDivider(),
+                        
+                  const ProfileTile(subText: "Notification, Language, Change Currency",title: 'Setting',icon: FeatherIcons.settings,),
+                  // AppSpaces.height8,
+                  const CustomDivider(),
+                        
+                  const ProfileTile(subText: "View team",title: 'Team',icon: FeatherIcons.users,),
+                  // AppSpaces.height8,
+                  const CustomDivider(),
+                        
+                  const ProfileTile(subText: "Edit profile",title: 'Invite User',icon: FeatherIcons.userPlus,),
+                  // AppSpaces.height8,
+                  const CustomDivider(),
+                        
+                  const ProfileTile(subText: "Signout",title: 'Logout',icon: FeatherIcons.logOut,),
+                  const CustomDivider(),
+                        
+                        
+                ],
+              ),
             ),
           );
         }

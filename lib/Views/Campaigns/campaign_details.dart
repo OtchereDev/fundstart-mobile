@@ -146,11 +146,11 @@ class _CampaignDetailsState extends State<CampaignDetails>
                                       fontSize: 17,
                                       fontWeight: FontWeight.w700,
                                       color: AppColors.BLACK),
-                                  text: '£$amount raised ',
+                                  text: '£${amount??0} raised ',
                                   children: [
                                 TextSpan(
                                   text:
-                                      'of  £${fundPro.fundraiser.amountRaising}',
+                                      'of  £${fundPro.fundraiser.amountRaising ??"..."}',
                                   style: const TextStyle(
                                       fontSize: 13,
                                       fontWeight: FontWeight.w400,
@@ -175,7 +175,7 @@ class _CampaignDetailsState extends State<CampaignDetails>
                                     size: 16,
                                   ),
                                   AppSpaces.width4,
-                                  Text("${fundPro.fundraiser.category?.name}")
+                                  Text("${fundPro.fundraiser.category?.name??"..."}")
                                 ],
                               ),
                               Row(
