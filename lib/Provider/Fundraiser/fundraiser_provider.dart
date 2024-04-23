@@ -155,6 +155,7 @@ class FundRaiserProvider extends ChangeNotifier {
         .then((value) {
       Loader.hide();
       if (value['status'] == true) {
+        clearImage();
         isSuccess = true;
         customDailog(
             isSuccess: true,

@@ -6,7 +6,6 @@ import 'package:crowdfunding/Core/Helpers/navigation_helper.dart';
 import 'package:crowdfunding/Core/app_constants.dart';
 import 'package:crowdfunding/Provider/login_provider.dart';
 import 'package:crowdfunding/Views/Auth/verification_page.dart';
-import 'package:crowdfunding/Views/Home/home_index.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 

@@ -9,7 +9,7 @@ import 'package:crowdfunding/Provider/Wallet/wallet_provider.dart';
 import 'package:crowdfunding/Provider/profile_provider.dart';
 import 'package:crowdfunding/Utils/utils.dart';
 import 'package:crowdfunding/Views/Campaigns/all_transactions.dart';
-import 'package:crowdfunding/Views/Home/add_credit_card.dart';
+import 'package:crowdfunding/Views/Wallet/add_credit_card.dart';
 import 'package:crowdfunding/Widgets/investment_tile_carousel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';

@@ -1,10 +1,7 @@
-import 'package:chat_bubbles/bubbles/bubble_special_one.dart';
 import 'package:chat_bubbles/bubbles/bubble_special_three.dart';
-import 'package:chat_bubbles/bubbles/bubble_special_two.dart';
 import 'package:crowdfunding/AppTheme/app_config.dart';
 import 'package:crowdfunding/Components/textformfield.dart';
 import 'package:crowdfunding/Provider/Chat/chat_provider.dart';
-import 'package:crowdfunding/Views/Chat/chat_bubble.dart';
 import 'package:feather_icons/feather_icons.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';

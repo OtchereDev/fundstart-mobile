@@ -1,5 +1,4 @@
 import 'package:crowdfunding/AppTheme/app_config.dart';
-import 'package:crowdfunding/Components/card_loading_shimmer.dart';
 import 'package:crowdfunding/Components/carousel.dart';
 import 'package:crowdfunding/Core/Helpers/navigation_helper.dart';
 import 'package:crowdfunding/Provider/Fundraiser/fundraiser_provider.dart';
@@ -14,7 +13,6 @@ import 'package:crowdfunding/Views/Chat/chat_gpt.dart';
 import 'package:crowdfunding/Views/Investors/top_investors.dart';
 import 'package:feather_icons/feather_icons.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 import 'dart:math' as math;
 

@@ -6,6 +6,7 @@ import 'package:crowdfunding/Provider/Fundraiser/fundraiser_provider.dart';
 import 'package:crowdfunding/Provider/profile_provider.dart';
 import 'package:crowdfunding/Views/Campaigns/all_my_campaigns.dart';
 import 'package:crowdfunding/Views/Campaigns/all_my_investments.dart';
+import 'package:crowdfunding/Views/Wallet/withdraw_money.dart';
 import 'package:crowdfunding/Widgets/campaign_tile.dart';
 import 'package:crowdfunding/Widgets/constributor_tile.dart';
 import 'package:crowdfunding/Widgets/contibutor_tab.dart';
@@ -195,7 +196,9 @@ class _MyCapmaignState extends State<MyCapmaign> {
                 child: CustomButton(
               title: 'Withdraw Now',
               color: AppColors.SECONDARYCOLOR,
-              onTap: () {},
+              onTap: () {
+                AppNavigationHelper.navigateToWidget(context, WithdrawalPage());
+              },
             )),
           ],
         ),

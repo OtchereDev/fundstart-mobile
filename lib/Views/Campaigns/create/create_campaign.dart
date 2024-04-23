@@ -108,6 +108,7 @@ class _CreateCampaignState extends State<CreateCampaign> {
                   false,
                   isDark: false,
                   hint: '£',
+                  inputType: TextInputType.number,
                 ),
                 AppSpaces.height16,
                 TextFormWidget(
@@ -135,6 +136,7 @@ class _CreateCampaignState extends State<CreateCampaign> {
                   true,
                   isDark: false,
                   hint: '12/10/2024',
+                  
                   icon: const Icon(FeatherIcons.calendar),
                   onTap: () async {
                     DateTime? date = await DatePickerUtil.pickDate(context,

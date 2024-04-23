@@ -14,8 +14,8 @@ class WalletProvider extends ChangeNotifier {
   WalletResponse? _walletResponse;
   WalletResponse? get walletResponse => _walletResponse;
 
-  DashboardResponse?  _dashboardResponse= DashboardResponse();
-  DashboardResponse?  get dashboardResponse=> _dashboardResponse;
+  DashboardResponse? _dashboardResponse = DashboardResponse();
+  DashboardResponse? get dashboardResponse => _dashboardResponse;
 
   Wallet? _wallet;
   Wallet? get wallet => _wallet;
@@ -36,7 +36,7 @@ class WalletProvider extends ChangeNotifier {
     });
   }
 
-    getDashboard(context) async {
+  getDashboard(context) async {
     setLoadingPage(true);
     await walletProvider.getDashboard(context).then((value) {
       setLoadingPage(false);
@@ -47,15 +47,15 @@ class WalletProvider extends ChangeNotifier {
     });
   }
 
- Future<bool> createWallet(context, data) async {
-  bool isSuccess = false;
+  Future<bool> createWallet(context, data) async {
+    bool isSuccess = false;
     print("---------------$data");
     show(context);
     await walletProvider.createWallet(context, data).then((value) {
       print("---------------$value");
       Loader.hide();
       if (value['status'] == true) {
-        isSuccess= true;
+        isSuccess = true;
         notifyListeners();
         customDailog(
             isSuccess: true,
@@ -69,6 +69,16 @@ class WalletProvider extends ChangeNotifier {
             title: 'Wallet creation failed',
             icon: const Icon(Icons.warning_amber));
       }
+    });
+    return isSuccess;
+  }
+
+  Future<bool> withdraw(context) async {
+    bool isSuccess = false;
+    show(context);
+    await Future.delayed(Duration(seconds: 3), () {
+      Loader.hide();
+      isSuccess = true;
     });
     return isSuccess;
   }
