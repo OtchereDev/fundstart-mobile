@@ -345,7 +345,7 @@ class GeneralTabView extends StatelessWidget {
             )
           ],
         ),
-        fundPro.fundraiser.investments!.isEmpty
+       fundPro.fundraiser.investments != null && fundPro.fundraiser.investments!.isEmpty
             ? const ListTile(
                 contentPadding: EdgeInsets.zero,
                 title: Text("No Investor Available"),
@@ -386,7 +386,7 @@ class GeneralTabView extends StatelessWidget {
             )
           ],
         ),
-        fundPro.fundraiser.comments!.isEmpty
+       fundPro.fundraiser.comments != null &&  fundPro.fundraiser.comments!.isEmpty
             ? const ListTile(
                 contentPadding: EdgeInsets.zero,
                 title: Text("No Comment Available"),

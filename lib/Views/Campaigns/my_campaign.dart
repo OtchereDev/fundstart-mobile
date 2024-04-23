@@ -75,7 +75,7 @@ class _MyCapmaignState extends State<MyCapmaign> {
                           )
                         ],
                       ),
-                     profile.portfolioResponse.portfolio!.isEmpty ? ListTile(title: Text("No Campaign available"),):  Column(
+                    profile.portfolioResponse.portfolio != null && profile.portfolioResponse.portfolio!.isEmpty ? ListTile(title: Text("No Campaign available"),):  Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           ...List.generate(
