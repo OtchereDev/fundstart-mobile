@@ -16,7 +16,7 @@ class WalletService with AuthBaseRepository implements WalletRepository {
       if (response != null) {
         var dataResponse = json.decode(response.body);
 
-          print("---------------$dataResponse");
+          // print("---------------$dataResponse");
         if (response.statusCode == 200) {
           responseMap['status'] = true;
           responseMap['message'] = dataResponse['message'];
@@ -38,14 +38,14 @@ class WalletService with AuthBaseRepository implements WalletRepository {
       url: "$kBaseUrl/wallet",
     ).then((response) {
       if (response != null) {
-        var dataResponse = json.decode(response.body);
         if (response.statusCode == 200) {
+        var dataResponse = json.decode(response.body);
           responseMap['status'] = true;
           responseMap['message'] = dataResponse['message'];
           responseMap['data'] = dataResponse;
         } else {
-          responseMap['message'] = dataResponse['message'];
-          responseMap['data'] = dataResponse;
+          responseMap['message'] = "";
+          responseMap['data'] = null;
         }
       }
     });
@@ -60,14 +60,14 @@ class WalletService with AuthBaseRepository implements WalletRepository {
       url: "$kBaseUrl/wallet/$id",
     ).then((response) {
       if (response != null) {
-        var dataResponse = json.decode(response.body);
         if (response.statusCode == 200) {
+        var dataResponse = json.decode(response.body);
           responseMap['status'] = true;
           responseMap['message'] = dataResponse['message'];
           responseMap['data'] = dataResponse;
         } else {
-          responseMap['message'] = dataResponse['message'];
-          responseMap['data'] = dataResponse;
+          responseMap['message'] = "";
+          responseMap['data'] = null;
         }
       }
     });
@@ -81,14 +81,14 @@ class WalletService with AuthBaseRepository implements WalletRepository {
       url: "$kBaseUrl/dashboard",
     ).then((response) {
       if (response != null) {
-        var dataResponse = json.decode(response.body);
         if (response.statusCode == 200) {
+        var dataResponse = json.decode(response.body);
           responseMap['status'] = true;
           responseMap['message'] = dataResponse['message'];
           responseMap['data'] = dataResponse;
         } else {
-          responseMap['message'] = dataResponse['message'];
-          responseMap['data'] = dataResponse;
+          responseMap['message'] ="";
+          responseMap['data'] = null;
         }
       }
     });
