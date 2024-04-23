@@ -38,7 +38,7 @@ FundStart is a comprehensive investment platform that connects entrepreneurs wit
 
 ## Architecture
 
-![alt text](image.png)
+![alt text](https://github.com/OtchereDev/fundstarty/raw/main/image.png)
 
 ## License
 
