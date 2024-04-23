@@ -23,6 +23,8 @@ class _AllCampaignsPageState extends State<AllCampaignsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+          backgroundColor: AppColors.WHITE,
+
         appBar: AppBar(
           backgroundColor: AppColors.WHITE,
           leading: IconButton(
@@ -46,7 +48,10 @@ class _AllCampaignsPageState extends State<AllCampaignsPage> {
         body: Consumer<FundRaiserProvider>(builder: (context, fund, _) {
           return Padding(
             padding: const EdgeInsets.symmetric(horizontal:20.0),
-            child: ListView.builder(
+            child:fund.fundRaiserModel?.fundraisers !=null && fund.fundRaiserModel!.fundraisers!.isEmpty ? ListTile(
+                    contentPadding: EdgeInsets.zero,
+                    title: Text("No Campaign available"),
+                   ) : ListView.builder(
                 itemCount: fund.fundRaiserModel?.fundraisers?.length ?? 0,
                 itemBuilder: (context, index) {
                   var data =

@@ -23,8 +23,9 @@ class _MyCapmaignState extends State<MyCapmaign> {
   @override
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      Future.value([context.read<ProfileProvider>().getPortfolio(context)
-      // context.read<FundRaiserProvider>().get(context)
+      Future.value([
+        context.read<ProfileProvider>().getPortfolio(context)
+        // context.read<FundRaiserProvider>().get(context)
       ]);
     });
     super.initState();
@@ -46,92 +47,126 @@ class _MyCapmaignState extends State<MyCapmaign> {
         ),
       ),
       body: SafeArea(
-        child: Consumer<FundRaiserProvider>(
-          builder: (context, fund, _) {
-            return Consumer<ProfileProvider>(builder: (context, profile, _) {
-              return profile.isLoading ? CardLoadingShimmer(numberOfCards: 6,): Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                child: SingleChildScrollView(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                       Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            "My Campaigns",
-                            style: TextStyle(
-                                fontSize: 17, fontWeight: FontWeight.w600),
-                          ),
-                          TextButton(
-                            onPressed: () {
-                              AppNavigationHelper.navigateToWidget(context, AllMyCampaigns());
-                            },
-                            child: const Text(
-                              "View all",
-                              style: TextStyle(
-                                  fontSize: 15, fontWeight: FontWeight.w700),
-                            ),
-                          )
-                        ],
-                      ),
-                    profile.portfolioResponse.portfolio != null && profile.portfolioResponse.portfolio!.isEmpty ? ListTile(title: Text("No Campaign available"),):  Column(
+        child: Consumer<FundRaiserProvider>(builder: (context, fund, _) {
+          return Consumer<ProfileProvider>(builder: (context, profile, _) {
+            return profile.isLoading
+                ? CardLoadingShimmer(
+                    numberOfCards: 6,
+                  )
+                : Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                    child: SingleChildScrollView(
+                      child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          ...List.generate(
-                          profile.portfolioResponse.portfolio?.take(1).length??0,
-                          (index) => CampaignTile(
-                                fundraiser: profile.portfolioResponse.portfolio![index].fundraiser!,
-                                showMOre: false,
-                              )),
-                        ],
-                      ),
-                      AppSpaces.height16,
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            "My Investments (${profile.portfolioResponse.portfolio?.length ?? 0})",
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                "My Campaigns",
+                                style: TextStyle(
+                                    fontSize: 17, fontWeight: FontWeight.w600),
+                              ),
+                              TextButton(
+                                onPressed: () {
+                                  AppNavigationHelper.navigateToWidget(
+                                      context, AllMyCampaigns());
+                                },
+                                child: const Text(
+                                  "View all",
+                                  style: TextStyle(
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.w700),
+                                ),
+                              )
+                            ],
+                          ),
+                          profile.portfolioResponse.portfolio != null &&
+                                  profile.portfolioResponse.portfolio!.isEmpty
+                              ? ListTile(
+                                  contentPadding: EdgeInsets.zero,
+                                  title: Text("No Campaign available"),
+                                )
+                              : Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    ...List.generate(
+                                        profile.portfolioResponse.portfolio
+                                                ?.take(1)
+                                                .length ??
+                                            0,
+                                        (index) => CampaignTile(
+                                              fundraiser: profile
+                                                  .portfolioResponse
+                                                  .portfolio![index]
+                                                  .fundraiser!,
+                                              showMOre: false,
+                                            )),
+                                  ],
+                                ),
+                          AppSpaces.height16,
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                "My Investments (${profile.portfolioResponse.portfolio?.length ?? 0})",
+                                style: TextStyle(
+                                    fontSize: 17, fontWeight: FontWeight.w600),
+                              ),
+                              TextButton(
+                                onPressed: () {
+                                  AppNavigationHelper.navigateToWidget(
+                                      context, AllMyInvestments());
+                                },
+                                child: const Text(
+                                  "View all",
+                                  style: TextStyle(
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w600),
+                                ),
+                              )
+                            ],
+                          ),
+                          profile.portfolioResponse.portfolio != null &&
+                                  profile.portfolioResponse.portfolio!.isEmpty
+                              ? ListTile(
+                                  contentPadding: EdgeInsets.zero,
+                                  title: Text("No Investment available"),
+                                )
+                              : Column(
+                                  children: [
+                                    ...List.generate(
+                                        profile.portfolioResponse.portfolio
+                                                ?.take(3)
+                                                .length ??
+                                            0,
+                                        (index) => ContributorTile(
+                                              portfolio: profile
+                                                  .portfolioResponse
+                                                  .portfolio![index],
+                                            )),
+                                  ],
+                                ),
+                          AppSpaces.height16,
+                          AppSpaces.height16,
+                          const Text(
+                            "Your Campaign Followers",
                             style: TextStyle(
                                 fontSize: 17, fontWeight: FontWeight.w600),
                           ),
-                          TextButton(
-                            onPressed: () {
-                              AppNavigationHelper.navigateToWidget(context, AllMyInvestments());
-                            },
-                            child: const Text(
-                              "View all",
-                              style: TextStyle(
-                                  fontSize: 14, fontWeight: FontWeight.w600),
+                          SingleChildScrollView(
+                            scrollDirection: Axis.horizontal,
+                            child: Row(
+                              children: List.generate(
+                                  5, (index) => ContributorsTab()),
                             ),
                           )
                         ],
                       ),
-                      ...List.generate(
-                          profile.portfolioResponse.portfolio?.take(3).length ?? 0,
-                          (index) => ContributorTile(
-                                portfolio:
-                                    profile.portfolioResponse.portfolio![index],
-                              )),
-                      AppSpaces.height16,
-                      AppSpaces.height16,
-                      const Text(
-                        "Your Campaign Followers",
-                        style: TextStyle(fontSize: 17, fontWeight: FontWeight.w600),
-                      ),
-                      SingleChildScrollView(
-                        scrollDirection: Axis.horizontal,
-                        child: Row(
-                          children: List.generate(5, (index) => ContributorsTab()),
-                        ),
-                      )
-                    ],
-                  ),
-                ),
-              );
-            });
-          }
-        ),
+                    ),
+                  );
+          });
+        }),
       ),
       bottomNavigationBar: Padding(
         padding:

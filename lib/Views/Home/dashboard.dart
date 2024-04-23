@@ -180,7 +180,10 @@ class _DashboardPageState extends State<DashboardPage> {
                           )
                         ],
                       ),
-                      Column(
+                   trans.transactionResponse.transactions != null && trans.transactionResponse.transactions!.isEmpty ?   ListTile(
+                    contentPadding: EdgeInsets.zero,
+                    title: Text("No Transactions available"),
+                   ):  Column(
                         children: [
                           ...List.generate(
                               trans.transactionResponse.transactions

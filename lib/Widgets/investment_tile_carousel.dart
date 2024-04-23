@@ -29,7 +29,14 @@ class InvestmentTileCarousel extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer<FundRaiserProvider>(builder: (context, fund, _) {
       var fundR = fund.fundRaiserModel?.fundraisers;
-      return fund.isLoading? Expanded(child: CardLoadingShimmer(numberOfCards: 1,)): CarouselSlider(
+      return fund.isLoading? Expanded(child: CardLoadingShimmer(numberOfCards: 1,)):
+       fund.fundRaiserModel?.fundraisers !=null && fund.fundRaiserModel!.fundraisers!.isEmpty ? ListTile(
+                    contentPadding: EdgeInsets.zero,
+                    title: Text("No Campaign available"),
+                   ) 
+      
+      
+      : CarouselSlider(
         options: CarouselOptions(
           height:Utils.screenSize(context) == ScreenSize.medium ?  115: null,
           aspectRatio: 3.0,

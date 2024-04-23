@@ -18,7 +18,6 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 import 'dart:math' as math;
 
-
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
@@ -26,13 +25,12 @@ class HomePage extends StatefulWidget {
   State<HomePage> createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage> with TickerProviderStateMixin{
-
-   late AnimationController _controller;
+class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
+  late AnimationController _controller;
 
   @override
   void initState() {
-     _controller = AnimationController(
+    _controller = AnimationController(
       vsync: this,
       duration: const Duration(milliseconds: 500),
     );
@@ -46,8 +44,10 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin{
     super.initState();
   }
 
-      static const List<IconData> icons =  [ FeatherIcons.messageCircle, FeatherIcons.plusCircle ];
-
+  static const List<IconData> icons = [
+    FeatherIcons.messageCircle,
+    FeatherIcons.plusCircle
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -132,19 +132,31 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin{
                             ],
                           ),
                           // AppSpaces.height8,
-                       ...List.generate(
-                       fundraiser.fundRaiserModel?.fundraisers
-                               ?.take(3)
-                               .length ??
-                           0, (index) {
-                                                   var data = fundraiser
-                         .fundRaiserModel?.fundraisers!.reversed
-                         .toList()[index];
-                                                   return FundraiserTile(
-                       fundraiser: data!,
-                                                   );
-                                                 }),
-                         
+                          fundraiser.fundRaiserModel?.fundraisers != null &&
+                                  fundraiser
+                                      .fundRaiserModel!.fundraisers!.isEmpty
+                              ? ListTile(
+                                  contentPadding: EdgeInsets.zero,
+                                  title: Text("No Campaign available"),
+                                )
+                              : Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    ...List.generate(
+                                        fundraiser.fundRaiserModel?.fundraisers
+                                                ?.take(3)
+                                                .length ??
+                                            0, (index) {
+                                      var data = fundraiser.fundRaiserModel
+                                          ?.fundraisers!.reversed
+                                          .toList()[index];
+                                      return FundraiserTile(
+                                        fundraiser: data!,
+                                      );
+                                    }),
+                                  ],
+                                ),
+
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
@@ -162,7 +174,8 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin{
                                     "View all",
                                     style: TextStyle(
                                         color: AppColors.PRIMARYCOLOR,
-                                        fontSize: 15, fontWeight: FontWeight.w700),
+                                        fontSize: 15,
+                                        fontWeight: FontWeight.w700),
                                   ))
                             ],
                           ),
@@ -175,7 +188,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin{
                                 .investorsResponse?.investors!.reversed
                                 .toList()[index];
                             return Padding(
-                              padding: const EdgeInsets.only(bottom:12.0),
+                              padding: const EdgeInsets.only(bottom: 12.0),
                               child: InvestorLsitTile(investor: data!),
                             );
                           }),
@@ -199,11 +212,8 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin{
             child: ScaleTransition(
               scale: CurvedAnimation(
                 parent: _controller,
-                curve: Interval(
-                  0.0,
-                  1.0 - index / icons.length / 2.0,
-                  curve: Curves.easeOut
-                ),
+                curve: Interval(0.0, 1.0 - index / icons.length / 2.0,
+                    curve: Curves.easeOut),
               ),
               child: FloatingActionButton(
                 heroTag: null,
@@ -211,48 +221,53 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin{
                 mini: true,
                 child: Center(child: Icon(icons[index], color: Colors.white)),
                 onPressed: () {
-                  if(index == 0){
+                  if (index == 0) {
                     AppNavigationHelper.navigateToWidget(context, ChatPage());
-                  }else{
-
-                    AppNavigationHelper.navigateToWidget(context, CreateCampaign());
+                  } else {
+                    AppNavigationHelper.navigateToWidget(
+                        context, CreateCampaign());
                   }
                 },
               ),
             ),
           );
           return child;
-        }).toList()..add(
-          FloatingActionButton(
-            heroTag: null,
-            shape: const CircleBorder(),
-            backgroundColor: AppColors.SECONDARYCOLOR,
-            child: AnimatedBuilder(
-              animation: _controller,
-              builder: (BuildContext context,  _) {
-                return Transform(
-                  transform: Matrix4.rotationZ(_controller.value * 0.5 * math.pi),
-                  alignment: FractionalOffset.center,
-                  child: Icon(_controller.isDismissed ? Icons.add : Icons.close, color: AppColors.WHITE,),
-                );
+        }).toList()
+          ..add(
+            FloatingActionButton(
+              heroTag: null,
+              shape: const CircleBorder(),
+              backgroundColor: AppColors.SECONDARYCOLOR,
+              child: AnimatedBuilder(
+                animation: _controller,
+                builder: (BuildContext context, _) {
+                  return Transform(
+                    transform:
+                        Matrix4.rotationZ(_controller.value * 0.5 * math.pi),
+                    alignment: FractionalOffset.center,
+                    child: Icon(
+                      _controller.isDismissed ? Icons.add : Icons.close,
+                      color: AppColors.WHITE,
+                    ),
+                  );
+                },
+              ),
+              onPressed: () {
+                if (_controller.isDismissed) {
+                  _controller.forward();
+                } else {
+                  _controller.reverse();
+                }
               },
             ),
-            onPressed: () {
-              if (_controller.isDismissed) {
-                _controller.forward();
-              } else {
-                _controller.reverse();
-              }
-            },
           ),
-        ),
       ),
-      
+
       // floatingActionButton: FloatingActionButton.extended(
       //     extendedPadding: const EdgeInsets.symmetric(horizontal: 10),
       //     backgroundColor: AppColors.SECONDARYCOLOR,
       //     onPressed: () {
-           
+
       //       // AppNavigationHelper.navigateToWidget(context, ChatPage());
       //       context.read<FundRaiserProvider>().getFile(context);
 
@@ -270,8 +285,6 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin{
       //         )
       //       ],
       //     )),
-    
-    
     );
   }
 }

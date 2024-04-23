@@ -107,7 +107,7 @@ class _CreateCampaignState extends State<CreateCampaign> {
                   'Amount',
                   false,
                   isDark: false,
-                  hint: 'USD',
+                  hint: '£',
                 ),
                 AppSpaces.height16,
                 TextFormWidget(
@@ -231,25 +231,36 @@ class CategoryBottomSheet extends StatelessWidget {
             ],
           ),
                 const CustomDivider(),
-          ...List.generate(
-              fundRaiserProvider.categoryModel?.response.length ?? 0, (index) {
-            var data = fundRaiserProvider.categoryModel?.response[index];
-            return Column(
-              children: [
-                ListTile(
-                  contentPadding: EdgeInsets.zero,
-                  title: Text(data?.name ?? ""),
-                  trailing: const Icon(Icons.arrow_forward_ios, size: 15,),
-                  onTap: (){
-                    fundRaiserProvider.setCategoryID(data?.id.toString() ??"");
-                    controller.text = data?.name??"";
-                       Navigator.pop(context);
-                  },
+          Expanded(
+            child: Expanded(
+              child: SingleChildScrollView(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    ...List.generate(
+                    fundRaiserProvider.categoryModel?.response.length ?? 0, (index) {
+                  var data = fundRaiserProvider.categoryModel?.response[index];
+                  return Column(
+                    children: [
+                      ListTile(
+                        contentPadding: EdgeInsets.zero,
+                        title: Text(data?.name ?? ""),
+                        trailing: const Icon(Icons.arrow_forward_ios, size: 15,),
+                        onTap: (){
+                          fundRaiserProvider.setCategoryID(data?.id.toString() ??"");
+                          controller.text = data?.name??"";
+                             Navigator.pop(context);
+                        },
+                      ),
+                      const CustomDivider(),
+                    ],
+                  );
+                })
+                  ],
                 ),
-                const CustomDivider(),
-              ],
-            );
-          })
+              ),
+            ),
+          )
         ],
       ),
     );
