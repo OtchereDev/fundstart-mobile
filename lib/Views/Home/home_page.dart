@@ -206,7 +206,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
         mainAxisSize: MainAxisSize.min,
         children: List.generate(icons.length, (int index) {
           Widget child = Container(
-            height: 50.0,
+            height: 55.0,
             width: 56.0,
             alignment: FractionalOffset.topCenter,
             child: ScaleTransition(
