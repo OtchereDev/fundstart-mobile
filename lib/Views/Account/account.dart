@@ -3,6 +3,7 @@ import 'package:crowdfunding/Core/Helpers/navigation_helper.dart';
 import 'package:crowdfunding/Core/app_constants.dart';
 import 'package:crowdfunding/Provider/profile_provider.dart';
 import 'package:crowdfunding/Views/Account/profile.dart';
+import 'package:crowdfunding/Views/GetStarted/get_started.dart';
 import 'package:crowdfunding/Widgets/custom_divider.dart';
 import 'package:feather_icons/feather_icons.dart';
 import 'package:flutter/material.dart';
@@ -58,7 +59,10 @@ class AccountPage extends StatelessWidget {
                   // AppSpaces.height8,
                   const CustomDivider(),
                         
-                  const ProfileTile(subText: "Signout",title: 'Logout',icon: FeatherIcons.logOut,),
+                   ProfileTile(subText: "Signout",title: 'Logout',icon: FeatherIcons.logOut,onTap: (){
+                      profile.logout(context);
+                      AppNavigationHelper.setRootOldWidget(context, GetStarted());
+                  },),
                   const CustomDivider(),
                         
                         
