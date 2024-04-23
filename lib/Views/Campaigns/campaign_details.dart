@@ -340,7 +340,7 @@ class GeneralTabView extends StatelessWidget {
               onPressed: () {},
               child: const Text(
                 "View all",
-                style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
+                style: TextStyle(fontSize: 15, fontWeight: FontWeight.w700),
               ),
             )
           ],

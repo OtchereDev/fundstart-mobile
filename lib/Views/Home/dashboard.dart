@@ -175,7 +175,7 @@ class _DashboardPageState extends State<DashboardPage> {
                             child: const Text(
                               "View all",
                               style: TextStyle(
-                                  fontSize: 14, fontWeight: FontWeight.w600),
+                                  fontSize: 15, fontWeight: FontWeight.w700),
                             ),
                           )
                         ],
@@ -321,7 +321,7 @@ class InterestedCampaignTile extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           SizedBox(
-                            width:Utils.screenSize(context) == ScreenSize.medium ?  Utils.screenWidth(context)-180: double.infinity,
+                            width:Utils.screenSize(context) == ScreenSize.medium ?  Utils.screenWidth(context)-180: null,
                             child: Text(
                               fundraiser.title ?? "",
                               overflow: TextOverflow.ellipsis,

@@ -70,7 +70,7 @@ class _MyCapmaignState extends State<MyCapmaign> {
                             child: const Text(
                               "View all",
                               style: TextStyle(
-                                  fontSize: 14, fontWeight: FontWeight.w600),
+                                  fontSize: 15, fontWeight: FontWeight.w700),
                             ),
                           )
                         ],

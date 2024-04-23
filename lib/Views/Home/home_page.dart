@@ -132,23 +132,18 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin{
                             ],
                           ),
                           // AppSpaces.height8,
-                        fundraiser.isLoading? Text("..."):  Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              ...List.generate(
-                              fundraiser.fundRaiserModel?.fundraisers
-                                      ?.take(3)
-                                      .length ??
-                                  0, (index) {
-                            var data = fundraiser
-                                .fundRaiserModel?.fundraisers!.reversed
-                                .toList()[index];
-                            return FundraiserTile(
-                              fundraiser: data!,
-                            );
-                          }),
-                            ],
-                          ),
+                       ...List.generate(
+                       fundraiser.fundRaiserModel?.fundraisers
+                               ?.take(3)
+                               .length ??
+                           0, (index) {
+                                                   var data = fundraiser
+                         .fundRaiserModel?.fundraisers!.reversed
+                         .toList()[index];
+                                                   return FundraiserTile(
+                       fundraiser: data!,
+                                                   );
+                                                 }),
                          
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -167,7 +162,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin{
                                     "View all",
                                     style: TextStyle(
                                         color: AppColors.PRIMARYCOLOR,
-                                        fontSize: 14),
+                                        fontSize: 15, fontWeight: FontWeight.w700),
                                   ))
                             ],
                           ),
