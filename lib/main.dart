@@ -29,7 +29,10 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: (){
-             FocusScope.of(context).requestFocus(FocusNode());
+        FocusScopeNode currentFocus = FocusScope.of(context);
+        if(currentFocus.hasPrimaryFocus){
+          currentFocus.unfocus();
+        }
       },
       child: MultiProvider(
           providers: [

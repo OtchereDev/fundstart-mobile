@@ -41,7 +41,6 @@ Widget textFormField({
       minLines: minLine,
       maxLines: maxLine,
       focusNode: focusNode,
-      autofocus: false,
       textInputAction: inputAction,
       cursorColor: cursorColor,
       style: TextStyle(

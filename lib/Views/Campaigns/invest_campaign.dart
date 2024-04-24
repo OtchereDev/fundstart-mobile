@@ -9,14 +9,35 @@ import 'package:crowdfunding/Widgets/custom_divider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class InvestInCampaign extends StatelessWidget {
+class InvestInCampaign extends StatefulWidget {
   InvestInCampaign({super.key});
+
+  @override
+  State<InvestInCampaign> createState() => _InvestInCampaignState();
+}
+
+class _InvestInCampaignState extends State<InvestInCampaign> {
   final textController = TextEditingController();
+
   final nameController = TextEditingController();
+
   final amountController = TextEditingController();
+
   final tipController = TextEditingController();
+
   final fmKey = GlobalKey<FormState>();
+
   final scfKey = GlobalKey<ScaffoldState>();
+
+  late FocusNode _amountFocus, donationFocus;
+
+  @override
+  void initState() {
+    _amountFocus = FocusNode();
+    donationFocus = FocusNode();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -76,6 +97,7 @@ class InvestInCampaign extends StatelessWidget {
                       icon: Image.asset('assets/icons/pounds.png'),
                       validate: true,
                       validateMsg: "Amount required",
+                      focusNode: donationFocus,
                     ),
                     AppSpaces.height16,
                     TextFormWidget(
@@ -103,6 +125,8 @@ class InvestInCampaign extends StatelessWidget {
                       tipController,
                       'Tip amount',
                       false,
+
+                      focusNode: _amountFocus,
                       isDark: false,
                       hint: '0.0',
                       icon: Image.asset('assets/icons/pounds.png'),
@@ -123,6 +147,8 @@ class InvestInCampaign extends StatelessWidget {
                               "name": nameController.text
                             };
                             payment.createPayment(context, data).then((value) {
+                              _amountFocus.unfocus();
+                              donationFocus.unfocus();
                               if (value != null) {
                                 payment.stripeMakePayment(scfKey.currentContext,value);
                               }

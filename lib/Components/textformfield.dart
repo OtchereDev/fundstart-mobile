@@ -25,7 +25,7 @@ class TextFormWidget extends StatefulWidget {
         horizontal: 8,
       ),
       this.onTap,
-      this.line, this.onFieldSubmitted});
+      this.line, this.onFieldSubmitted, this.focusNode});
   TextEditingController textController = TextEditingController();
   final String? title, hint;
   final String? validateMsg;
@@ -42,6 +42,8 @@ class TextFormWidget extends StatefulWidget {
   final int? count, line;
   Function(String)? onValueChange;
   final ValueChanged<String>? onFieldSubmitted;
+
+  final FocusNode? focusNode;
 
 
 
@@ -97,7 +99,7 @@ class _TextFormWidgetState extends State<TextFormWidget> {
             }
             return null;
           },
-          focusNode: null,
+          focusNode: widget.focusNode,
           decoration: InputDecoration(
               hintText: widget.hint,
               counterText: "",
