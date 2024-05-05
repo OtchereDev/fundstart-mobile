@@ -81,7 +81,6 @@ class FundRaiserProvider extends ChangeNotifier {
       maxWidth: 1080,
       // aspectRatio: CropAspectRatio(ratioX: 16, ratioY: 9),
     );
-
     if (croppedFile != null) {
       _setImage(croppedFile);
     }
@@ -89,10 +88,19 @@ class FundRaiserProvider extends ChangeNotifier {
 
   _setImage(File value) {
     _imageFile = XFile(value.path);
-    Utils.convertImageToBase64(_imageFile!.path).then((value) {
-      _imageString = ("data:image/jpeg;base64,$value");
-      notifyListeners();
-    });
+    if (Platform.isAndroid) {
+      Utils.androidImageConvert(File(_imageFile!.path)).then((value) {
+        _imageString = ("data:image/jpeg;base64,$value");
+        notifyListeners();
+        print(_imageString);
+      });
+    } else {
+      Utils.convertImageToBase64(_imageFile!.path).then((value) {
+        _imageString = ("data:image/jpeg;base64,$value");
+        notifyListeners();
+        print(_imageString);
+      });
+    }
     notifyListeners();
   }
 
@@ -149,6 +157,7 @@ class FundRaiserProvider extends ChangeNotifier {
   Future<bool> createCampaign(
       context, FundraiserRequest fundraiserRequest) async {
     bool isSuccess = false;
+    print(fundraiserRequest.toJson());
     show(context);
     await fundraiserServices
         .createFundraiser(context, fundraiserRequest.toJson())
@@ -161,7 +170,7 @@ class FundRaiserProvider extends ChangeNotifier {
             isSuccess: true,
             message: 'Campaign created successful',
             title: 'Successful',
-            icon: const Icon(Icons.warning_amber));
+            icon: const Icon(Icons.check));
       }
     });
     return isSuccess;

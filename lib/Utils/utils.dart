@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 import 'dart:math';
 import 'dart:typed_data';
 import 'package:crowdfunding/Core/Enums/enums.dart';
@@ -15,6 +16,11 @@ class Utils {
     var buffer = bytes.buffer;
     return base64.encode(Uint8List.view(buffer));
   }
+
+  static Future<String> androidImageConvert(File file)async{
+  List<int> imageBytes = await file.readAsBytes();
+  return base64Encode(imageBytes);
+}
 
   bool keyboardIsVisible(context) {
     return !(MediaQuery.of(context).viewInsets.bottom == 0.0);
