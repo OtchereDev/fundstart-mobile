@@ -1,8 +1,11 @@
 import 'dart:convert';
 
 import 'package:crowdfunding/Core/Api/routes.dart';
+import 'package:crowdfunding/Core/Helpers/navigation_helper.dart';
 import 'package:crowdfunding/Core/Mixins/auth_base_repository.dart';
 import 'package:crowdfunding/Core/Repositories/Fundraiser/fundraiser_repository.dart';
+import 'package:crowdfunding/Services/Local/shared_prefs_manager.dart';
+import 'package:crowdfunding/Views/GetStarted/get_started.dart';
 
 class FundraiserService
     with AuthBaseRepository
@@ -16,12 +19,15 @@ class FundraiserService
       data: jsonEncode(data),
     ).then((response) {
       print(response?.body);
-      if (response != null) {
+      if (response != null && response != "") {
+        var dataResponse = json.decode(response.body);
         if (response.statusCode == 200) {
-          var dataResponse = json.decode(response.body);
           responseMap['status'] = true;
           responseMap['message'] = dataResponse['message'];
           // responseMap['data'] = dataResponse;
+        } else if (dataResponse['message'] == "Unauthenticated") {
+          SharedPrefsManager().logout();
+          AppNavigationHelper.setRootOldWidget(context, GetStarted());
         } else {
           responseMap['message'] = "Campaign creation failed";
           responseMap['data'] = null;
@@ -61,11 +67,14 @@ class FundraiserService
       url: "$kBaseUrl/create-account",
     ).then((response) {
       if (response != null) {
+        var dataResponse = json.decode(response.body);
         if (response.statusCode == 200) {
-          var dataResponse = json.decode(response.body);
           responseMap['status'] = true;
           responseMap['message'] = dataResponse['message'];
           responseMap['data'] = dataResponse;
+        } else if (dataResponse['message'] == "Unauthenticated") {
+          SharedPrefsManager().logout();
+          AppNavigationHelper.setRootOldWidget(context, GetStarted());
         } else {
           responseMap['message'] = "failed";
           responseMap['data'] = null;
@@ -82,12 +91,15 @@ class FundraiserService
       context,
       url: "$kBaseUrl/category",
     ).then((response) {
-      if (response != null) {
+      if (response != null && response != "") {
+        var dataResponse = json.decode(response.body);
         if (response.statusCode == 200) {
-          var dataResponse = json.decode(response.body);
           responseMap['status'] = true;
           responseMap['message'] = dataResponse['message'];
           responseMap['data'] = dataResponse;
+        } else if (dataResponse['message'] == "Unauthenticated") {
+          SharedPrefsManager().logout();
+          AppNavigationHelper.setRootOldWidget(context, GetStarted());
         } else {
           responseMap['message'] = "get category failed";
           responseMap['data'] = null;

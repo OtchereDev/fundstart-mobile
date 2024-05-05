@@ -1,10 +1,13 @@
 import 'dart:convert';
 
 import 'package:crowdfunding/Core/Api/routes.dart';
+import 'package:crowdfunding/Core/Helpers/navigation_helper.dart';
 import 'package:crowdfunding/Core/Mixins/auth_base_repository.dart';
 import 'package:crowdfunding/Core/Repositories/Auth/auth_repository.dart';
 import 'package:crowdfunding/Services/Local/shared_prefs_manager.dart';
+import 'package:crowdfunding/Views/GetStarted/get_started.dart';
 import 'package:http/http.dart' as http;
+
 class AuthRemoteService with AuthBaseRepository implements AuthRepository {
   @override
   String token = "N/A";
@@ -43,7 +46,7 @@ class AuthRemoteService with AuthBaseRepository implements AuthRepository {
       url: "$kBaseUrl/auth/login",
       data: jsonEncode(data),
     ).then((response) {
-       if (response != null) {
+      if (response != null) {
         var dataResponse = json.decode(response.body);
         if (response.statusCode == 200) {
           responseMap['status'] = true;
@@ -85,7 +88,9 @@ class AuthRemoteService with AuthBaseRepository implements AuthRepository {
   @override
   Future<dynamic> sendOtp(context, data) async {
     dynamic responseMap = {"status": false, "message": "", "data": null};
-    await post(context, url: "$kBaseUrl/referring-doctors/request-password-reset", data:jsonEncode(data))
+    await post(context,
+            url: "$kBaseUrl/referring-doctors/request-password-reset",
+            data: jsonEncode(data))
         .then((response) {
       if (response != null) {
         var dataResponse = json.decode(response.body);
@@ -94,7 +99,7 @@ class AuthRemoteService with AuthBaseRepository implements AuthRepository {
           responseMap['status'] = true;
           responseMap['message'] = dataResponse['message'];
           responseMap['data'] = json.decode(response.body);
-        }else{
+        } else {
           responseMap['message'] = dataResponse['message'];
           responseMap['data'] = dataResponse;
         }
@@ -105,16 +110,16 @@ class AuthRemoteService with AuthBaseRepository implements AuthRepository {
 
   @override
   Future verifyOtp(context, data) async {
-      dynamic responseMap = {"status": false, "message": "", "data": null};
+    dynamic responseMap = {"status": false, "message": "", "data": null};
     await post(context, url: "$kBaseUrl/account/verify", data: data)
         .then((response) {
-      if (response != null){
-         var dataResponse = json.decode(response.body);
+      if (response != null) {
+        var dataResponse = json.decode(response.body);
         if (response.statusCode == 200) {
           responseMap['status'] = true;
           responseMap['message'] = dataResponse['message'];
           responseMap['data'] = json.decode(response.body);
-        }else{
+        } else {
           responseMap['message'] = dataResponse['message'];
           responseMap['data'] = dataResponse;
         }
@@ -125,14 +130,14 @@ class AuthRemoteService with AuthBaseRepository implements AuthRepository {
 
   Future checkAuthUser(context) async {
     dynamic responseMap = {"status": false, "message": "", "data": null};
-     await get(context, url: "$kBaseUrl/auth/check-user").then((response) {
-      if (response != null){
+    await get(context, url: "$kBaseUrl/auth/check-user").then((response) {
+      if (response != null) {
         if (response.statusCode == 200) {
           var dataResponse = json.decode(response.body);
           responseMap['status'] = true;
           responseMap['message'] = dataResponse['message'];
           responseMap['data'] = json.decode(response.body);
-        }else{
+        } else {
           responseMap['message'] = "No user available";
           responseMap['data'] = null;
         }
@@ -155,13 +160,13 @@ class AuthRemoteService with AuthBaseRepository implements AuthRepository {
   Future testPushNotification(context, data) async {
     dynamic responseMap;
     await get(context, url: "").then((response) {
-      if (response != null){
-          var dataResponse = json.decode(response.body);
+      if (response != null) {
+        var dataResponse = json.decode(response.body);
         if (response.statusCode == 200) {
           responseMap['status'] = true;
           responseMap['message'] = dataResponse['message'];
           responseMap['data'] = json.decode(response.body);
-        }else{
+        } else {
           responseMap['message'] = dataResponse['message'];
           responseMap['data'] = dataResponse;
         }
@@ -172,16 +177,19 @@ class AuthRemoteService with AuthBaseRepository implements AuthRepository {
 
   // @override
   Future resetPassword(context, data) async {
-       dynamic responseMap = {"status": false, "message": "", "data": null};
-    await post(context, url: "$kBaseUrl/referring-doctors/reset-password", data: jsonEncode(data)).then((response) {
+    dynamic responseMap = {"status": false, "message": "", "data": null};
+    await post(context,
+            url: "$kBaseUrl/referring-doctors/reset-password",
+            data: jsonEncode(data))
+        .then((response) {
       if (response != null) {
-          var dataResponse = json.decode(response.body);
-      print(dataResponse);
+        var dataResponse = json.decode(response.body);
+        print(dataResponse);
         if (dataResponse['statusCode'] == 200) {
           responseMap['status'] = true;
           responseMap['message'] = dataResponse['message'];
           responseMap['data'] = dataResponse;
-        }else{
+        } else {
           responseMap['message'] = dataResponse['message'];
           responseMap['data'] = dataResponse;
         }
@@ -193,7 +201,9 @@ class AuthRemoteService with AuthBaseRepository implements AuthRepository {
   //  @override
   Future verifyPin(context, data) async {
     dynamic responseMap = {"status": false, "message": "", "data": null};
-    await post(context, url: "$kBaseUrl/auth/login-complete", data:jsonEncode(data)).then((response) {
+    await post(context,
+            url: "$kBaseUrl/auth/login-complete", data: jsonEncode(data))
+        .then((response) {
       // print(response);
       if (response != null) {
         if (response.statusCode == 200) {
@@ -201,7 +211,7 @@ class AuthRemoteService with AuthBaseRepository implements AuthRepository {
           responseMap['status'] = true;
           responseMap['message'] = dataResponse['message'];
           responseMap['data'] = dataResponse;
-        }else{
+        } else {
           responseMap['message'] = "Verification failed";
           responseMap['data'] = null;
         }
@@ -209,8 +219,4 @@ class AuthRemoteService with AuthBaseRepository implements AuthRepository {
     });
     return responseMap;
   }
-  
-
-  
-
 }

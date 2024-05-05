@@ -1,8 +1,11 @@
 import 'dart:convert';
 
 import 'package:crowdfunding/Core/Api/routes.dart';
+import 'package:crowdfunding/Core/Helpers/navigation_helper.dart';
 import 'package:crowdfunding/Core/Mixins/auth_base_repository.dart';
 import 'package:crowdfunding/Core/Repositories/Wallet/wallet_repository.dart';
+import 'package:crowdfunding/Services/Local/shared_prefs_manager.dart';
+import 'package:crowdfunding/Views/GetStarted/get_started.dart';
 
 class WalletService with AuthBaseRepository implements WalletRepository {
   @override
@@ -16,7 +19,7 @@ class WalletService with AuthBaseRepository implements WalletRepository {
       if (response != null) {
         var dataResponse = json.decode(response.body);
 
-          // print("---------------$dataResponse");
+        // print("---------------$dataResponse");
         if (response.statusCode == 200) {
           responseMap['status'] = true;
           responseMap['message'] = dataResponse['message'];
@@ -38,12 +41,16 @@ class WalletService with AuthBaseRepository implements WalletRepository {
       url: "$kBaseUrl/wallet",
     ).then((response) {
       if (response != null) {
+          var dataResponse = json.decode(response.body);
         if (response.statusCode == 200) {
-        var dataResponse = json.decode(response.body);
           responseMap['status'] = true;
           responseMap['message'] = dataResponse['message'];
           responseMap['data'] = dataResponse;
-        } else {
+        }
+         else if (dataResponse['message'] == "Unauthenticated") {
+          SharedPrefsManager().logout();
+          AppNavigationHelper.setRootOldWidget(context, GetStarted());
+        }  else {
           responseMap['message'] = "";
           responseMap['data'] = null;
         }
@@ -60,11 +67,14 @@ class WalletService with AuthBaseRepository implements WalletRepository {
       url: "$kBaseUrl/wallet/$id",
     ).then((response) {
       if (response != null) {
+          var dataResponse = json.decode(response.body);
         if (response.statusCode == 200) {
-        var dataResponse = json.decode(response.body);
           responseMap['status'] = true;
           responseMap['message'] = dataResponse['message'];
           responseMap['data'] = dataResponse;
+        } else if (dataResponse['message'] == "Unauthenticated") {
+          SharedPrefsManager().logout();
+          AppNavigationHelper.setRootOldWidget(context, GetStarted());
         } else {
           responseMap['message'] = "";
           responseMap['data'] = null;
@@ -74,7 +84,7 @@ class WalletService with AuthBaseRepository implements WalletRepository {
     return responseMap;
   }
 
-   Future getDashboard(context) async {
+  Future getDashboard(context) async {
     dynamic responseMap = {"status": false, "message": "", "data": null};
     await get(
       context,
@@ -82,14 +92,17 @@ class WalletService with AuthBaseRepository implements WalletRepository {
     ).then((response) {
       if (response != null) {
         print(response.body);
-        if (response.statusCode == 200) {
         var dataResponse = json.decode(response.body);
-        print(dataResponse);
+        if (response.statusCode == 200) {
+          print(dataResponse);
           responseMap['status'] = true;
           responseMap['message'] = dataResponse['message'];
           responseMap['data'] = dataResponse;
+        } else if (dataResponse['message'] == "Unauthenticated") {
+          SharedPrefsManager().logout();
+          AppNavigationHelper.setRootOldWidget(context, GetStarted());
         } else {
-          responseMap['message'] ="";
+          responseMap['message'] = "";
           responseMap['data'] = null;
         }
       }
