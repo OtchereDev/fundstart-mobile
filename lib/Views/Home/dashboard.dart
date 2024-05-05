@@ -502,8 +502,8 @@ class CreditCardWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Consumer<WalletProvider>(builder: (context, wallet, _) {
-      var myWallet = wallet.walletResponse!.wallets.reversed.toList();
-      if (wallet.walletResponse!.wallets.isEmpty) {
+      var myWallet = wallet.walletResponse?.wallets.reversed.toList();
+      if (wallet.walletResponse == null) {
         return Text("No Card Added");
       } else {
         return Stack(
@@ -525,7 +525,7 @@ class CreditCardWidget extends StatelessWidget {
                         Text(
                           wallet.isLoading
                               ? "Loading..."
-                              : myWallet[0].cardNumber,
+                              : myWallet?[0].cardNumber??"",
                           style: const TextStyle(
                               fontSize: 20,
                               fontWeight: FontWeight.w600,
@@ -534,7 +534,7 @@ class CreditCardWidget extends StatelessWidget {
                         Text(
                           wallet.isLoading
                               ? "Loading..."
-                              : "EXP ${myWallet[0].expiryDate}",
+                              : "EXP ${myWallet?[0].expiryDate}",
                           style: const TextStyle(
                               fontSize: 20,
                               fontWeight: FontWeight.w600,
@@ -548,7 +548,7 @@ class CreditCardWidget extends StatelessWidget {
                       child: Text(
                         wallet.isLoading
                             ? "Loading..."
-                            : "${myWallet[0].cardHolder}",
+                            : "${myWallet?[0].cardHolder}",
                         style: const TextStyle(
                             fontSize: 20,
                             color: AppColors.WHITE,

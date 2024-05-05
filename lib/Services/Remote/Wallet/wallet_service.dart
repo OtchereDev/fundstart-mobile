@@ -81,8 +81,10 @@ class WalletService with AuthBaseRepository implements WalletRepository {
       url: "$kBaseUrl/dashboard",
     ).then((response) {
       if (response != null) {
+        print(response.body);
         if (response.statusCode == 200) {
         var dataResponse = json.decode(response.body);
+        print(dataResponse);
           responseMap['status'] = true;
           responseMap['message'] = dataResponse['message'];
           responseMap['data'] = dataResponse;

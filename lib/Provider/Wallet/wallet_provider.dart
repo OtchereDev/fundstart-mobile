@@ -39,6 +39,7 @@ class WalletProvider extends ChangeNotifier {
   getDashboard(context) async {
     setLoadingPage(true);
     await walletProvider.getDashboard(context).then((value) {
+      print("---------------$value");
       setLoadingPage(false);
       if (value['status'] == true) {
         _dashboardResponse = DashboardResponse.fromJson(value['data']);
