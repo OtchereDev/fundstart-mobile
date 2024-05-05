@@ -157,7 +157,6 @@ class FundRaiserProvider extends ChangeNotifier {
   Future<bool> createCampaign(
       context, FundraiserRequest fundraiserRequest) async {
     bool isSuccess = false;
-    print(fundraiserRequest.toJson());
     show(context);
     await fundraiserServices
         .createFundraiser(context, fundraiserRequest.toJson())
